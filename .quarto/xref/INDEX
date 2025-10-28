@@ -1,0 +1,188 @@
+{
+  "index.qmd": {
+    "index.html": "322d09a3"
+  },
+  "2025/01_points.qmd": {
+    "01_points.html": "b5507843"
+  },
+  "2025/02_lines.qmd": {
+    "02_lines.html": "1197c8e5"
+  },
+  "2025/03_polygons.qmd": {
+    "03_polygons.html": "c03d4a86"
+  },
+  "2025/04_data_challenge_my_data.qmd": {
+    "04_data_challenge_my_data.html": "e71509d9"
+  },
+  "2025/05_earth.qmd": {
+    "05_earth.html": "161660e4"
+  },
+  "2025/06_dimensions.qmd": {
+    "06_dimensions.html": "44716254"
+  },
+  "2025/07_accessibility.qmd": {
+    "07_accessibility.html": "1acd342d"
+  },
+  "2025/08_urban.qmd": {
+    "08_urban.html": "28295ffd"
+  },
+  "2025/09_analog.qmd": {
+    "09_analog.html": "28f5ea6e"
+  },
+  "2025/10_air.qmd": {
+    "10_air.html": "835a4a91"
+  },
+  "2025/11_minimal_map.qmd": {
+    "11_minimal_map.html": "cad7c78f"
+  },
+  "2025/12_map_from_2125.qmd": {
+    "12_map_from_2125.html": "8c6222ab"
+  },
+  "2025/13_10_minute_map.qmd": {
+    "13_10_minute_map.html": "89af6fdd"
+  },
+  "2025/14_data_challenge_openstreetmap.qmd": {
+    "14_data_challenge_openstreetmap.html": "78bda0e9"
+  },
+  "2025/15_fire.qmd": {
+    "15_fire.html": "6d38693d"
+  },
+  "2025/16_cell.qmd": {
+    "16_cell.html": "d9525690"
+  },
+  "2025/17_a_new_tool.qmd": {
+    "17_a_new_tool.html": "2df85a96"
+  },
+  "2025/18_out_of_this_world.qmd": {
+    "18_out_of_this_world.html": "6a67b73c"
+  },
+  "2025/19_projections.qmd": {
+    "19_projections.html": "0a69c062"
+  },
+  "2025/20_water.qmd": {
+    "20_water.html": "22d7ac0b"
+  },
+  "2025/21_icons.qmd": {
+    "21_icons.html": "4fb995ee"
+  },
+  "2025/22_data_challenge_natural_earth.qmd": {
+    "22_data_challenge_natural_earth.html": "4dd1edb2"
+  },
+  "2025/23_process.qmd": {
+    "23_process.html": "fe93b0fe"
+  },
+  "2025/24_places_and_their_names.qmd": {
+    "24_places_and_their_names.html": "e51a0ec6"
+  },
+  "2025/25_hexagons.qmd": {
+    "25_hexagons.html": "41a64388"
+  },
+  "2025/26_transport.qmd": {
+    "26_transport.html": "7cf61dd9"
+  },
+  "2025/27_boundaries.qmd": {
+    "27_boundaries.html": "5fa94aa2"
+  },
+  "2025/28_black.qmd": {
+    "28_black.html": "97a3bc97"
+  },
+  "2025/29_raster.qmd": {
+    "29_raster.html": "2bf09973"
+  },
+  "2025/30_makeover.qmd": {
+    "30_makeover.html": "d41d4d95"
+  },
+  "R/template.qmd": {
+    "template.html": "2753d2b9"
+  },
+  "2025/01_points/01_points.qmd": {
+    "01_points.html": "a33845a4"
+  },
+  "2025/02_lines/02_lines.qmd": {
+    "02_lines.html": "d0b47a6e"
+  },
+  "2025/03_polygons/03_polygons.qmd": {
+    "03_polygons.html": "6c3329ac"
+  },
+  "2025/04_data_challenge_my_data/04_data_challenge_my_data.qmd": {
+    "04_data_challenge_my_data.html": "e5a35834"
+  },
+  "2025/05_earth/05_earth.qmd": {
+    "05_earth.html": "15c43e9b"
+  },
+  "2025/06_dimensions/06_dimensions.qmd": {
+    "06_dimensions.html": "d4c90f87"
+  },
+  "2025/07_accessibility/07_accessibility.qmd": {
+    "07_accessibility.html": "16ecc8ef"
+  },
+  "2025/08_urban/08_urban.qmd": {
+    "08_urban.html": "5fc68ac0"
+  },
+  "2025/09_analog/09_analog.qmd": {
+    "09_analog.html": "37b4b55f"
+  },
+  "2025/10_air/10_air.qmd": {
+    "10_air.html": "952819b3"
+  },
+  "2025/11_minimal_map/11_minimal_map.qmd": {
+    "11_minimal_map.html": "adc6f90b"
+  },
+  "2025/12_map_from_2125/12_map_from_2125.qmd": {
+    "12_map_from_2125.html": "f49d1549"
+  },
+  "2025/13_10_minute_map/13_10_minute_map.qmd": {
+    "13_10_minute_map.html": "6b2123e7"
+  },
+  "2025/14_data_challenge_openstreetmap/14_data_challenge_openstreetmap.qmd": {
+    "14_data_challenge_openstreetmap.html": "7f83d2f4"
+  },
+  "2025/15_fire/15_fire.qmd": {
+    "15_fire.html": "9918c0ad"
+  },
+  "2025/16_cell/16_cell.qmd": {
+    "16_cell.html": "cea6a902"
+  },
+  "2025/17_a_new_tool/17_a_new_tool.qmd": {
+    "17_a_new_tool.html": "f17c01ef"
+  },
+  "2025/18_out_of_this_world/18_out_of_this_world.qmd": {
+    "18_out_of_this_world.html": "b79e6b56"
+  },
+  "2025/19_projections/19_projections.qmd": {
+    "19_projections.html": "69c5775c"
+  },
+  "2025/20_water/20_water.qmd": {
+    "20_water.html": "cd8c0a96"
+  },
+  "2025/21_icons/21_icons.qmd": {
+    "21_icons.html": "a038deb6"
+  },
+  "2025/22_data_challenge_natural_earth/22_data_challenge_natural_earth.qmd": {
+    "22_data_challenge_natural_earth.html": "7f55b724"
+  },
+  "2025/23_process/23_process.qmd": {
+    "23_process.html": "4b595117"
+  },
+  "2025/24_places_and_their_names/24_places_and_their_names.qmd": {
+    "24_places_and_their_names.html": "2bec87ec"
+  },
+  "2025/25_hexagons/25_hexagons.qmd": {
+    "25_hexagons.html": "635e5711"
+  },
+  "2025/26_transport/26_transport.qmd": {
+    "26_transport.html": "c554b819"
+  },
+  "2025/27_boundaries/27_boundaries.qmd": {
+    "27_boundaries.html": "f638d9f9"
+  },
+  "2025/28_black/28_black.qmd": {
+    "28_black.html": "6150cf93"
+  },
+  "2025/29_raster/29_raster.qmd": {
+    "29_raster.html": "1438b565"
+  },
+  "2025/30_makeover/30_makeover.qmd": {
+    "30_makeover.html": "88582f3f"
+  }
+}

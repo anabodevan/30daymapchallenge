@@ -1,0 +1,37 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/2025/01_points/01_points.html",
+      "/2025/02_lines/02_lines.html",
+      "/2025/03_polygons/03_polygons.html",
+      "/2025/04_data_challenge_my_data/04_data_challenge_my_data.html",
+      "/2025/05_earth/05_earth.html",
+      "/2025/06_dimensions/06_dimensions.html",
+      "/2025/07_accessibility/07_accessibility.html",
+      "/2025/08_urban/08_urban.html",
+      "/2025/09_analog/09_analog.html",
+      "/2025/10_air/10_air.html",
+      "/2025/11_minimal_map/11_minimal_map.html",
+      "/2025/12_map_from_2125/12_map_from_2125.html",
+      "/2025/13_10_minute_map/13_10_minute_map.html",
+      "/2025/14_data_challenge_openstreetmap/14_data_challenge_openstreetmap.html",
+      "/2025/15_fire/15_fire.html",
+      "/2025/16_cell/16_cell.html",
+      "/2025/17_a_new_tool/17_a_new_tool.html",
+      "/2025/18_out_of_this_world/18_out_of_this_world.html",
+      "/2025/19_projections/19_projections.html",
+      "/2025/20_water/20_water.html",
+      "/2025/21_icons/21_icons.html",
+      "/2025/22_data_challenge_natural_earth/22_data_challenge_natural_earth.html",
+      "/2025/23_process/23_process.html",
+      "/2025/24_places_and_their_names/24_places_and_their_names.html",
+      "/2025/25_hexagons/25_hexagons.html",
+      "/2025/26_transport/26_transport.html",
+      "/2025/27_boundaries/27_boundaries.html",
+      "/2025/28_black/28_black.html",
+      "/2025/29_raster/29_raster.html",
+      "/2025/30_makeover/30_makeover.html"
+    ]
+  }
+]

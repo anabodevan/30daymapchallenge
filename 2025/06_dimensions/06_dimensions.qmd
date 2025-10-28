@@ -1,0 +1,77 @@
+---
+title: "Dimensions"
+author: "Ana Luisa Bodevan"
+image: "06_Dimensions.png"
+execute:
+  warning: false
+  message: false
+  eval: true
+format:
+  html:
+    code-tools: true
+    code-fold: true
+---
+
+## {day}
+
+| Map beyond 2D. Visualize data using 3D models, extrusions (building heights), depth, time (as a dimension), or an unconventional multivariate approach.
+
+## 1. SETUP
+
+### 1.1 Load libraries and data
+
+```{r}
+#| label: load libraries and data
+
+library(pacman)
+pacman :: p_load(tidyverse, dplyr, ragg, showtext, sf)
+
+```
+
+### 1.2 Set theme
+
+```{r}
+#| label: set theme 
+
+theme_30d <- function() {
+  # Set base theme  =============================================
+  theme_minimal() +
+    # Overwrite base theme defaults ============================================
+    theme(
+      # Text elements ==========================================================
+      plot.title = element_text(
+        size = 18,
+        face = "bold",
+        color = "#333333",
+        margin = margin(b = 10)
+      ),
+      plot.subtitle = element_text(
+        size = 14,
+        color = "#999999",
+        margin = margin(b = 10)
+      ),
+      plot.caption = element_text(
+        size = 13,
+        color = "#777777",
+        margin = margin(t = 15),
+        hjust = 0
+      ),
+      axis.text = element_text(
+        size = 11,
+        color = "#333333"
+      ),
+      plot.title.position = "plot",
+      plot.caption.position = "plot",
+
+    # Remove axes & gridlines completely
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
+    )
+}  #### thanks r for the rest of us 
+```
+
+## 2. DATA WRANGLING
+
+## 3. PLOT

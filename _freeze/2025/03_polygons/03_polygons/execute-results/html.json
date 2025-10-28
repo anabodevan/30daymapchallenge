@@ -1,0 +1,15 @@
+{
+  "hash": "f5d4698406ac204c371f06aa8344aba7",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Polygons\"\nauthor: \"Ana Luisa Bodevan\"\nimage: \"03_Polygons.png\"\nexecute:\n  warning: false\n  message: false\n  eval: true\nformat:\n  html:\n    code-tools: true\n    code-fold: true\n---\n\n## {day}\n\n| Challenge Classic: Create a map focused on area features (e.g., administrative regions, land use, boundaries). Use fills, patterns, and choropleth techniques.\n\n## 1. SETUP\n\n### 1.1 Load libraries and data\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(pacman)\npacman :: p_load(tidyverse, dplyr, ragg, showtext, sf)\n```\n:::\n\n\n### 1.2 Set theme\n\n\n::: {.cell}\n\n```{.r .cell-code}\ntheme_30d <- function() {\n  # Set base theme  =============================================\n  theme_minimal() +\n    # Overwrite base theme defaults ============================================\n    theme(\n      # Text elements ==========================================================\n      plot.title = element_text(\n        size = 18,\n        face = \"bold\",\n        color = \"#333333\",\n        margin = margin(b = 10)\n      ),\n      plot.subtitle = element_text(\n        size = 14,\n        color = \"#999999\",\n        margin = margin(b = 10)\n      ),\n      plot.caption = element_text(\n        size = 13,\n        color = \"#777777\",\n        margin = margin(t = 15),\n        hjust = 0\n      ),\n      axis.text = element_text(\n        size = 11,\n        color = \"#333333\"\n      ),\n      plot.title.position = \"plot\",\n      plot.caption.position = \"plot\",\n\n    # Remove axes & gridlines completely\n      axis.text = element_blank(),\n      axis.title = element_blank(),\n      axis.ticks = element_blank(),\n      panel.grid = element_blank(),\n    )\n}  #### thanks r for the rest of us \n```\n:::\n\n\n## 2. DATA WRANGLING\n\n## 3. PLOT\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

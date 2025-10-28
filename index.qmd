@@ -1,0 +1,15 @@
+---
+title: ""
+toc: false
+page-layout: article
+listing:
+  contents: 
+    - "2025/**/*.qmd"
+  sort: "date desc"
+  type: grid
+  sort-ui: false
+  filter-ui: false
+  fields: [title, image]
+  image-height: 250px
+---
+Hello and welcome to my [#30DayMapChallenge](https://30daymapchallenge.com/) submissions website! If you're not familiar, the #30DayMapChallenge is  a challenge takes place every November, with 30 different mapping themes - one for each day of the month.

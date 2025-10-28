@@ -1,0 +1,291 @@
+---
+title: "Points"
+author: "Ana Luisa Bodevan"
+description: "France's nuclear power plants"
+image: "01_Points.png"
+execute:
+  warning: false
+  message: false
+  eval: true
+format:
+  html:
+    code-tools: true
+    code-fold: true
+---
+
+# Day 1: Points
+
+| Challenge Classic: Map with point data (e.g., individual locations, points of interest, clusters). Focus on effective symbolization and density visualization.
+
+For this one, we will be looking into the nuclear power plants of France, one of the world's largest investors in nuclear energy.
+
+## 1. SETUP
+
+### 1.1 Load libraries and data
+
+The data will is from [Wikipedia](https://en.wikipedia.org/wiki/List_of_power_stations_in_France)
+
+```{r}
+#| label: load libraries and data
+
+library(pacman)
+pacman :: p_load(tidyverse, dplyr, ragg, showtext, sf, stringr, rnaturalearth, rnaturalearthdata,
+                  ggrepel, ggspatial)
+
+# Active Nuclear Power Plants
+active_plants <- data.frame(
+  name = c("Belleville NPP", "Blayais NPP", "Bugey", "Cattenom NPP", 
+           "Chinon NPP", "Chooz-B NPP", "Civaux NPP", "Cruas NPP", 
+           "Dampierre NPP", "Flamanville NPP", "Golfech NPP", "Gravelines NPP",
+           "Nogent NPP", "Paluel NPP", "Penly NPP", "Saint-Alban NPP",
+           "Saint-Laurent-B NPP", "Tricastin NPC"),
+  location = c("Belleville-sur-Loire", "Braud-et-Saint-Louis", "Saint-Vulbas", 
+               "Cattenom", "Avoine", "Chooz", "Civaux", "Cruas",
+               "Dampierre-en-Burly", "Flamanville", "Golfech", "Gravelines",
+               "Nogent-sur-Seine", "Paluel", "Penly", "Saint-Alban-du-Rhône",
+               "Saint-Laurent-Nouan", "Bollène"),
+  latitude = c(47.510534, 45.255833, 45.798333, 49.4158, 47.230556, 50.09, 
+               46.456667, 44.633056, 47.7336808, 49.536389, 44.1067, 51.015278,
+               48.515278, 49.858056, 49.976667, 45.4042957, 47.72, 44.329722),
+  longitude = c(2.8761864, -0.693056, 5.270833, 6.2181, 0.170556, 4.789444,
+                0.652778, 4.756667, 2.5172853, -1.881667, 0.8453, 2.136111,
+                3.517778, 0.635556, 1.211944, 4.7555351, 1.5775, 4.732222),
+  entered_operation = c("1987-1988", "1981-1983", "1972", "1986-1991", 
+                        "1988", "1998-2000", "1998-2000", "1983-1984",
+                        "1980-1981", "1985-2020", "1991-1993", "1980-1985",
+                        "1987-1988", "1985-1986", "1990-1992", "1985-1986",
+                        "1981", "1983-1984"),
+  retired = "N",
+  stringsAsFactors = FALSE
+)
+
+# Retired Nuclear Power Plants
+retired_plants <- data.frame(
+  name = c("Brennilis NPP", "Fessenheim NPP", "Marcoule-G1", "Marcoule-G2 & G3",
+           "Phénix", "Superphénix"),
+  location = c("Brennilis", "Fessenheim", "Bagnols-sur-Cèze", "Bagnols-sur-Cèze",
+               "Bagnols-sur-Cèze", "Creys-Mépieu"),
+  latitude = c(48.3533, 47.9032247, 44.143333, 44.143333, 44.143333, 45.758333),
+  longitude = c(-3.872203, 7.5623059, 4.709444, 4.709444, 4.711667, 5.472222),
+  entered_operation = c("1967", "1977", "1956", "1959", "1973", "1986"),
+  retired = "Y",
+  stringsAsFactors = FALSE
+)
+
+# Combine both datasets
+france_nuclear_plants <- bind_rows(active_plants, retired_plants)
+
+head(france_nuclear_plants)
+```
+
+Now we know France has 24 nuclear facilities, with 18 of them active, and also their coordinates.
+
+## 2. DATA WRANGLING
+
+Now that we have our "points", we need the background layer - the map of France itself. The country boundaries can be easily acessed using `rnaturalearth` and `rnaturaleathdata` and `sf` makes ease to deal with spatial data. We will also need to convert the `france_nuclear_plants` dataset to a sf object.
+
+```{r}
+#| label: data wrangling 
+
+# Get France map data
+france <- ne_countries(scale = "medium", country = "France", returnclass = "sf")
+
+# Convert nuclear plants to sf object
+nuclear_sf <- st_as_sf(france_nuclear_plants, 
+                       coords = c("longitude", "latitude"),
+                       crs = 4326)
+
+# Get neighboring countries for context
+neighbors <- ne_countries(scale = "medium", 
+                         country = c("Germany", "Belgium", "Switzerland", 
+                                   "Italy", "Spain", "Luxembourg", "Andorra"),
+                         returnclass = "sf")
+
+nuclear_sf_age <- nuclear_sf %>%
+  mutate(
+    # Extract first year from entered_operation
+    year_start = as.numeric(str_extract(entered_operation, "\\d{4}")),
+    age = 2025 - year_start,
+    age_group = case_when(
+      retired == "Y" ~ "Retired",
+      age < 30 ~ "1995+",
+      age < 40 ~ "1985-1994", 
+      TRUE ~ "<1985"
+    ),
+    age_group = factor(age_group, levels = c("<1985", "1985-1994", "1995+", "Retired"))
+  )
+```
+
+## 3. PLOT
+
+### 3.1 Base plot
+
+```{r}
+#| label: sbase plot 
+ 
+ggplot() +
+  # France base map
+  geom_sf(data = france, fill = "#f0f0f0", color = "#333333", size = 0.5) +
+  # Nuclear plants points
+  geom_sf(data = nuclear_sf, aes(color = retired, shape = retired), 
+          size = 3, alpha = 0.8) +
+  coord_sf(xlim = c(-5, 10), ylim = c(41, 52)) # zoom on mainland france
+```
+
+### 3.2 Set theme
+
+```{r}
+#| label: set theme 
+
+theme_30d <- function() {
+  theme_void() +
+    theme(
+      plot.title = element_text(
+        size = 18,
+        face = "bold",
+        color = "#333333",
+        margin = margin(b = 10)
+      ),
+      plot.subtitle = element_text(
+        size = 14,
+        color = "#999999",
+        margin = margin(b = 10)
+      ),
+      plot.caption = element_text(
+        size = 13,
+        color = "#777777",
+        margin = margin(t = 15),
+        hjust = 0
+      ),
+      plot.title.position = "plot",
+      plot.caption.position = "plot",
+      # Remove axes & gridlines completely
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      axis.ticks = element_blank(),
+      panel.grid = element_blank()
+    )
+}
+```
+
+### 3.3 Set fonts and colors
+
+```{r}
+#| label: aesthetic elements 
+
+font_add_google("Libre Franklin", "librefranklin")
+font_add_google("Inter", "inter")
+
+font_title <- "librefranklin"
+font_body <- "inter"
+showtext_auto()
+
+pal <- c("#0055A4", "#EF4135")
+
+title <- "France Went Nuclear"
+subtitle = "With 18 active plants and 57 reactors, 70% of France's electricity comes\nfrom nuclear energy, the highest share of any country worldwide"
+caption <- "Data: Wikipedia & World Nuclear Association\n#30DayMapChallenge Day 1: Points | @anabodevan"
+
+```
+
+### 3.4 Map
+
+```{r}
+#| eval: false
+#| echo: true
+
+ggplot() +
+  # Neighboring countries (background)
+  geom_sf(data = neighbors, fill = "#F5F5F5", color = "#DDDDDD", linewidth = 0.3) +
+
+  # France outline
+  geom_sf(data = france, fill = "white", color = "#06174F", linewidth = 0.8) +
+
+  # Nuclear plants points
+  geom_sf(
+    data = nuclear_sf_age,
+    aes(color = age_group, shape = age_group),
+    size = 4, stroke = 1.2
+  ) +
+
+  # Color and shape scales
+  scale_color_manual(
+    values = c(
+      "<1985" = "#003D82",        # Dark blue
+      "1985-1994" = "#0055A4",    # Medium blue
+      "1995+" = "#4A90E2",        # Light blue
+      "Retired" = "#EF4135"       # Red
+    ),
+    name = "Entered Operation"
+  ) +
+  scale_shape_manual(
+    values = c(
+      "<1985" = 19,
+      "1985-1994" = 19,
+      "1995+" = 19,
+      "Retired" = 4
+    ),
+    name = "Entered Operation"
+  ) +
+
+  # Labels
+  labs(
+    title = title,
+    subtitle = subtitle,
+    caption = caption,
+    x = NULL, y = NULL
+  ) +
+
+  # Custom theme
+  theme_30d() +
+  theme(
+    text = element_text(family = font_body),
+    plot.title = element_text(
+      family = font_title,
+      size = 30, face = "bold", color = "#002395",
+      margin = margin(b = 12), hjust = 0
+    ),
+    plot.subtitle = element_text(
+      family = font_body,
+      size = 17, color = "#363535", margin = margin(b = 30), hjust = 0
+    ),
+    plot.caption = element_text(
+      family = font_body,
+      size = 11, color = "#5A5A5A", hjust = 0.5, margin = margin(t = 15)
+    ),
+    legend.position = "bottom",
+    legend.direction = "horizontal",
+    legend.title = element_text(family = font_body, face = "bold", size = 12),
+    legend.text = element_text(family = font_body, size = 12),
+    legend.background = element_blank(),
+    legend.key = element_blank(),
+    legend.key.size = unit(0.8, "cm"),
+    legend.spacing.x = unit(0.4, "cm"),
+    plot.margin = margin(20, 20, 20, 20),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA)
+  ) +
+
+  # Enhanced legend
+  guides(
+    color = guide_legend(
+      override.aes = list(size = 4),
+      nrow = 1, title.position = "top", title.hjust = 0.5
+    ),
+    shape = guide_legend(
+      override.aes = list(size = 4),
+      nrow = 1, title.position = "top", title.hjust = 0.5
+    )
+  ) +
+
+  # Proper bounding box for France 
+  coord_sf(
+    xlim = c(-5.5, 10),
+    ylim = c(41, 52),
+    expand = FALSE,
+    clip = "off"
+  )
+ 
+```
+
+![](01_points.png){fig-align="center" width="591"}
