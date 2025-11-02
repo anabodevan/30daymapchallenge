@@ -10,7 +10,7 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 
 **Data:** `rnaturalearth` package
 
-![](2025/01_points\01_points.png){fig-align="center" width="413"}
+![](images/01_points.png){fig-align="center" width="413"}
 
 ## Day 2 - Lines
 
@@ -20,4 +20,4 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 
 **Data:** ANTT & IBGE
 
-![](2025/02_lines\02_lines.png){fig-align="center" width="628"}
+![](images/02_lines.png){fig-align="center" width="628"}
