@@ -78,4 +78,4 @@ ggplot() +
 
 Last few tweaks made on Canva
 
-![](01_points.png){fig-align="center" width="437"}
+![](01_points.png){fig-align="center" width="597"}
