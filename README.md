@@ -10,7 +10,7 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 
 **Data:** `rnaturalearth` package
 
-![](images/01_points.png){fig-align="center" width="413"}
+![](2025/01_points\01_points.png){fig-align="center" width="413"}
 
 ## Day 2 - Lines
 
@@ -20,4 +20,14 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 
 **Data:** ANTT & IBGE
 
-![](images/02_lines.png){fig-align="center" width="628"}
+![](2025/02_lines\02_lines.png){fig-align="center" width="628"}
+
+## Day 3 - Polygons
+
+**Concept:** Acesso à Rede Geral de Esgoto
+
+**Tools:** R
+
+**Data:** IBGE
+
+![](2025/03_polygons\03_polygons.png){fig-align="center" width="628"}

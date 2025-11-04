@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "",
     "section": "",
-    "text": "Hello and welcome to my #30DayMapChallenge submissions website! If you’re not familiar, the #30DayMapChallenge is a challenge takes place every November, with 30 different mapping themes - one for each day of the month.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPoints\n\n\nSouth America in Points\n\n\n\n\n\n\n\n\n\n\n\n\nLines\n\n\nDecline in Brazil’s railway network\n\n\n\n\n\nNo matching items"
+    "text": "Hello and welcome to my #30DayMapChallenge submissions website! If you’re not familiar, the #30DayMapChallenge is a challenge takes place every November, with 30 different mapping themes - one for each day of the month.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPoints\n\n\nSouth America in Points\n\n\n\n\n\n\n\n\n\n\n\n\nLines\n\n\nDecline in Brazil’s railway network\n\n\n\n\n\n\n\n\n\n\n\n\nPolygons\n\n\nAcesso à rede geral de esgoto\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "2025/30_makeover.html",
@@ -809,7 +809,7 @@
     "href": "2025/03_polygons/03_polygons.html",
     "title": "Polygons",
     "section": "",
-    "text": "Challenge Classic: Create a map focused on area features (e.g., administrative regions, land use, boundaries). Use fills, patterns, and choropleth techniques."
+    "text": "|Challenge Classic: Create a map focused on area features (e.g., administrative regions, land use, boundaries). Use fills, patterns, and choropleth techniques.\nPara um país que ocupa o décimo lugar no ranking de PIB nominal1 o Brasil apresenta estatísticas assustadoras relacionadas ao desenvolvimento socioeconômico e acesso à necessidades básicas. Talvez uma das maiores evidências da gigantesca desigualdade de renda e serviços no país seja a situação do acesso ao saneamento básico. Dados do IBGE 2022 49 milhões de pessoas vivem em condições precárias de esgotamento sanitário2, e 90 milhões não possuem acesso à coleta e tratamento de esgoto3.\n\n\n\n\n\n\nCode\nlibrary(pacman)\npacman :: p_load(tidyverse, dplyr, geobr, sidrar, sf, ggtext, showtext, ragg, viridis, ggthemes, cowplot)\n\n\n\n\n\n\n\nCode\nesgoto_raw &lt;- get_sidra(\n  x = 6805,\n  variable = 1000381,                     # percentual\n  geo = \"City\",                           # municípios\n  classific = \"c11558\",                   # tipo de esgotamento\n  category = list(\"c11558\" = 46290),      # Rede geral, rede pluvial ou fossa ligada à rede\n  period = \"2022\"\n)\n\nbr_muni &lt;- read_municipality(code_muni = \"all\", year = 2022) # shapefile do brasil por mun\n\n\n\n\n\n\n\n\nCode\nesgoto &lt;- esgoto_raw %&gt;%\n  select(\n    code_muni = `Município (Código)`,\n    municipio = Município,\n    perc_rede_geral = Valor\n  ) %&gt;%\n  mutate(\n    code_muni = as.numeric(code_muni)\n  )\n\nbr_mapa &lt;- br_muni %&gt;%\n  left_join(esgoto, by = \"code_muni\")\n\nbr_mapa &lt;- br_mapa %&gt;%\n  mutate(\n    faixa = cut(\n      perc_rede_geral,\n      breaks = c(0, 33, 66, 100),\n      labels = c(\"Baixo\", \"Médio\", \"Alto\"),\n      include.lowest = TRUE\n    )\n  )\n\n\n\n\n\n\n\n\n\nCode\nfont_add_google(\"Montserrat\", \"mont\")\nshowtext_auto()\n\n\n\n\nCode\nggplot(br_mapa) +\n\n  geom_sf(aes(fill = perc_rede_geral), color = NA, size = 0) +\n\n  scale_fill_viridis_c(\n    name = NULL,\n    option = \"D\",\n    direction = -1,\n    na.value = \"gray90\"\n  ) +\n\n  labs(\n    title = \"Acesso à Rede Geral de Esgoto no Brasil (2022)\",\n    subtitle = \"62.5% dos domícilios tem acesso à rede de esgoto, ainda assim,\\n49 milhões utilizam recursos precários de esgotamento\",\n    caption = \"#30DayMapChallenge — Day 4: Polygons\\nSource: IBGE/SIDRA | Graphic: Ana Bodevan\"\n  ) +\n\n  theme_map() +\n\n  theme(\n    text = element_text(family = \"mont\", size = rel(1)),\n    plot.title = element_text(size = 20, face = \"bold\", hjust = 0.5),\n    plot.subtitle = element_text(size = 16, hjust = 0.5, color = \"gray30\"),\n\n    legend.position = c(0.15, 0.37),\n    legend.key.width = unit(2.5, \"cm\"),\n    legend.title = element_text(size = 10, face = \"bold\"),\n    legend.text = element_text(size = 9),\n\n    plot.caption = element_text(size = 8, color = \"gray40\", hjust = 0.5, lineheight = 1.3))"
   },
   {
     "objectID": "2025/03_polygons/03_polygons.html#day",
@@ -822,8 +822,8 @@
     "objectID": "2025/03_polygons/03_polygons.html#setup",
     "href": "2025/03_polygons/03_polygons.html#setup",
     "title": "Polygons",
-    "section": "1. SETUP",
-    "text": "1. SETUP\n\n1.1 Load libraries and data\n\n\nCode\nlibrary(pacman)\npacman :: p_load(tidyverse, dplyr, ragg, showtext, sf)\n\n\n\n\n1.2 Set theme\n\n\nCode\ntheme_30d &lt;- function() {\n  # Set base theme  =============================================\n  theme_minimal() +\n    # Overwrite base theme defaults ============================================\n    theme(\n      # Text elements ==========================================================\n      plot.title = element_text(\n        size = 18,\n        face = \"bold\",\n        color = \"#333333\",\n        margin = margin(b = 10)\n      ),\n      plot.subtitle = element_text(\n        size = 14,\n        color = \"#999999\",\n        margin = margin(b = 10)\n      ),\n      plot.caption = element_text(\n        size = 13,\n        color = \"#777777\",\n        margin = margin(t = 15),\n        hjust = 0\n      ),\n      axis.text = element_text(\n        size = 11,\n        color = \"#333333\"\n      ),\n      plot.title.position = \"plot\",\n      plot.caption.position = \"plot\",\n\n    # Remove axes & gridlines completely\n      axis.text = element_blank(),\n      axis.title = element_blank(),\n      axis.ticks = element_blank(),\n      panel.grid = element_blank(),\n    )\n}  #### thanks r for the rest of us"
+    "section": "",
+    "text": "Code\nlibrary(pacman)\npacman :: p_load(tidyverse, dplyr, geobr, sidrar, sf, ggtext, showtext, ragg, viridis, ggthemes, cowplot)\n\n\n\n\n\n\n\nCode\nesgoto_raw &lt;- get_sidra(\n  x = 6805,\n  variable = 1000381,                     # percentual\n  geo = \"City\",                           # municípios\n  classific = \"c11558\",                   # tipo de esgotamento\n  category = list(\"c11558\" = 46290),      # Rede geral, rede pluvial ou fossa ligada à rede\n  period = \"2022\"\n)\n\nbr_muni &lt;- read_municipality(code_muni = \"all\", year = 2022) # shapefile do brasil por mun"
   },
   {
     "objectID": "2025/03_polygons/03_polygons.html#data-wrangling",
@@ -836,8 +836,8 @@
     "objectID": "2025/03_polygons/03_polygons.html#plot",
     "href": "2025/03_polygons/03_polygons.html#plot",
     "title": "Polygons",
-    "section": "3. PLOT",
-    "text": "3. PLOT"
+    "section": "",
+    "text": "Code\nfont_add_google(\"Montserrat\", \"mont\")\nshowtext_auto()\n\n\n\n\nCode\nggplot(br_mapa) +\n\n  geom_sf(aes(fill = perc_rede_geral), color = NA, size = 0) +\n\n  scale_fill_viridis_c(\n    name = NULL,\n    option = \"D\",\n    direction = -1,\n    na.value = \"gray90\"\n  ) +\n\n  labs(\n    title = \"Acesso à Rede Geral de Esgoto no Brasil (2022)\",\n    subtitle = \"62.5% dos domícilios tem acesso à rede de esgoto, ainda assim,\\n49 milhões utilizam recursos precários de esgotamento\",\n    caption = \"#30DayMapChallenge — Day 4: Polygons\\nSource: IBGE/SIDRA | Graphic: Ana Bodevan\"\n  ) +\n\n  theme_map() +\n\n  theme(\n    text = element_text(family = \"mont\", size = rel(1)),\n    plot.title = element_text(size = 20, face = \"bold\", hjust = 0.5),\n    plot.subtitle = element_text(size = 16, hjust = 0.5, color = \"gray30\"),\n\n    legend.position = c(0.15, 0.37),\n    legend.key.width = unit(2.5, \"cm\"),\n    legend.title = element_text(size = 10, face = \"bold\"),\n    legend.text = element_text(size = 9),\n\n    plot.caption = element_text(size = 8, color = \"gray40\", hjust = 0.5, lineheight = 1.3))"
   },
   {
     "objectID": "2025/05_earth/05_earth.html",
@@ -1328,5 +1328,19 @@
     "title": "Lines",
     "section": "",
     "text": "Challenge Classic: Map linear features (e.g., roads, rivers, migration paths, flow lines). Explore line thickness, color, and direction to convey information."
+  },
+  {
+    "objectID": "2025/03_polygons/03_polygons.html#limpeza",
+    "href": "2025/03_polygons/03_polygons.html#limpeza",
+    "title": "Polygons",
+    "section": "",
+    "text": "Code\nesgoto &lt;- esgoto_raw %&gt;%\n  select(\n    code_muni = `Município (Código)`,\n    municipio = Município,\n    perc_rede_geral = Valor\n  ) %&gt;%\n  mutate(\n    code_muni = as.numeric(code_muni)\n  )\n\nbr_mapa &lt;- br_muni %&gt;%\n  left_join(esgoto, by = \"code_muni\")\n\nbr_mapa &lt;- br_mapa %&gt;%\n  mutate(\n    faixa = cut(\n      perc_rede_geral,\n      breaks = c(0, 33, 66, 100),\n      labels = c(\"Baixo\", \"Médio\", \"Alto\"),\n      include.lowest = TRUE\n    )\n  )"
+  },
+  {
+    "objectID": "2025/03_polygons/03_polygons.html#footnotes",
+    "href": "2025/03_polygons/03_polygons.html#footnotes",
+    "title": "Polygons",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nhttps://www.poder360.com.br/poder-economia/brasil-mantem-se-como-a-10a-maior-economia-do-mundo/↩︎\nhttps://agenciadenoticias.ibge.gov.br/agencia-noticias/2012-agencia-de-noticias/noticias/39237-censo-2022-rede-de-esgoto-alcanca-62-5-da-populacao-mas-desigualdades-regionais-e-por-cor-e-raca-persistem↩︎\nhttps://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2025-08/estudo-aponta-estagnacao-no-saneamento-5-anos-apos-novo-marco-legal↩︎"
   }
 ]

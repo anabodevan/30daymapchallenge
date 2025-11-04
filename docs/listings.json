@@ -3,7 +3,8 @@
     "listing": "/index.html",
     "items": [
       "/2025/01_points/01_points.html",
-      "/2025/02_lines/02_lines.html"
+      "/2025/02_lines/02_lines.html",
+      "/2025/03_polygons/03_polygons.html"
     ]
   }
 ]
