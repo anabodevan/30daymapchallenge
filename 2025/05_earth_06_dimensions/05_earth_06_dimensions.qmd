@@ -1,0 +1,83 @@
+---
+title: "Earth / Dimensions"
+author: "Ana Luisa Bodevan"
+description: "3D Elevation of Volcán Lascar"
+image: "05_earth_06_dimensions.png"
+execute:
+  warning: false
+  message: false
+  eval: false
+format:
+  html:
+    code-tools: true
+    code-fold: true
+---
+
+# Day 5 - Earth
+
+| Classical Elements ¼: Focus on the tangible and grounded. Map landforms, geology, soil, agriculture, elevation, or anything solid beneath your feet.
+
+# Day 6 - Dimensions
+
+| Map beyond 2D. Visualize data using 3D models, extrusions (building heights), depth, time (as a dimension), or an unconventional multivariate approach.
+
+## Load Libraries
+
+```{r}
+library(pacman)
+pacman :: p_load(tidyverse, sf, raster, rayshader, elevatr, rayvista)
+```
+
+## Bounding Box
+
+```{r}
+crsLONGLAT <- "+proj=longlat +datum=WGS84 +no_defs"
+
+get_area_bbox <- function(){
+    xmin <- -67.763466
+    ymin <- -23.390804
+    xmax <- -67.705444
+    ymax <- -23.344643
+
+    bbox <- sf::st_sfc(
+        sf::st_polygon(
+            list(
+                cbind(
+                    c(xmin, xmax, xmax, xmin, xmin),
+                    c(ymin, ymin, ymax, ymax, ymin)
+                )
+            )
+        ), crs = crsLONGLAT
+    ) |> sf::st_as_sf()
+
+    return(bbox)
+}
+
+lascar_bbox <- get_area_bbox()
+```
+
+### Volcán Lascar
+
+```{r}
+lascar_dem <- rayvista::plot_3d_vista(
+    req_area = lascar_bbox,
+    phi = 80,
+    theta = 0,
+    elevation_detail = 13,
+    overlay_detail = 16,
+    zscale = 1,
+    solid = F,
+    outlier_filter = .001,
+    zoom = .65,
+    windowsize = c(800, 800)
+)
+
+rayshader::render_snapshot(
+    filename = "lascar.png",
+    clear = T
+)
+```
+
+Final editions were made with Canvas.
+
+![](05_earth_06_dimensions.png){fig-align="center" width="727"}

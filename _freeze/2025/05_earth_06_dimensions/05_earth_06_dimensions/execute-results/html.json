@@ -1,0 +1,15 @@
+{
+  "hash": "2c18a5bd27adc2b97696755a5fdc9774",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Earth / Dimensions\"\nauthor: \"Ana Luisa Bodevan\"\ndescription: \"3D Elevation of Volcán Lascar\"\nimage: \"05_earth_06_dimensions.png\"\nexecute:\n  warning: false\n  message: false\n  eval: false\nformat:\n  html:\n    code-tools: true\n    code-fold: true\n---\n\n# Day 5 - Earth\n\n| Classical Elements ¼: Focus on the tangible and grounded. Map landforms, geology, soil, agriculture, elevation, or anything solid beneath your feet.\n\n# Day 6 - Dimensions\n\n| Map beyond 2D. Visualize data using 3D models, extrusions (building heights), depth, time (as a dimension), or an unconventional multivariate approach.\n\n## Load Libraries\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(pacman)\npacman :: p_load(tidyverse, sf, raster, rayshader, elevatr, rayvista)\n```\n:::\n\n\n## Bounding Box\n\n\n::: {.cell}\n\n```{.r .cell-code}\ncrsLONGLAT <- \"+proj=longlat +datum=WGS84 +no_defs\"\n\nget_area_bbox <- function(){\n    xmin <- -67.763466\n    ymin <- -23.390804\n    xmax <- -67.705444\n    ymax <- -23.344643\n\n    bbox <- sf::st_sfc(\n        sf::st_polygon(\n            list(\n                cbind(\n                    c(xmin, xmax, xmax, xmin, xmin),\n                    c(ymin, ymin, ymax, ymax, ymin)\n                )\n            )\n        ), crs = crsLONGLAT\n    ) |> sf::st_as_sf()\n\n    return(bbox)\n}\n\nlascar_bbox <- get_area_bbox()\n```\n:::\n\n\n### Volcán Lascar\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlascar_dem <- rayvista::plot_3d_vista(\n    req_area = lascar_bbox,\n    phi = 80,\n    theta = 0,\n    elevation_detail = 13,\n    overlay_detail = 16,\n    zscale = 1,\n    solid = F,\n    outlier_filter = .001,\n    zoom = .65,\n    windowsize = c(800, 800)\n)\n\nrayshader::render_snapshot(\n    filename = \"lascar.png\",\n    clear = T\n)\n```\n:::\n\n\nFinal editions were made with Canvas.\n\n![](05_earth_06_dimensions.png){fig-align=\"center\" width=\"727\"}",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

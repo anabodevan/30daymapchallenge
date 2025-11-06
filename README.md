@@ -31,3 +31,13 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 **Data:** IBGE
 
 ![](2025/03_polygons\03_polygons.png){fig-align="center" width="628"}
+
+## Day 5 - Earth & Day 6 - Dimensions
+
+**Concept:** Elevation map of Lascar Volcano
+
+**Tools:** `rayvista` and `rayshader`
+
+**Data:** `rayshader`
+
+![](2025/05_earth_06_dimensions\05_earth_06_dimensions.png){fig-align="center" width="595"}
