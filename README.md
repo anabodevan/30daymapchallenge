@@ -6,7 +6,7 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 
 **Concept:** South America in 18.000 points
 
-**Tools:** R
+**Tools:** R, `ggplot2`
 
 **Data:** `rnaturalearth` package
 
@@ -16,7 +16,7 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 
 **Concept:** Brazil's Railways
 
-**Tools:** R
+**Tools:** R, `ggplot2`
 
 **Data:** ANTT & IBGE
 
@@ -26,7 +26,7 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 
 **Concept:** Acesso à Rede Geral de Esgoto
 
-**Tools:** R
+**Tools:** R, `ggplot2`
 
 **Data:** IBGE
 
@@ -41,3 +41,13 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 **Data:** `rayshader`
 
 ![](2025/05_earth_06_dimensions\05_earth_06_dimensions.png){fig-align="center" width="595"}
+
+## Day 8 - Urban
+
+**Concept:**
+
+**Tools:** R, `ggplot2`
+
+**Data:** Open Street Maps
+
+![](2025/08_urban\08_urban.png){fig-align="center" width="533"}
