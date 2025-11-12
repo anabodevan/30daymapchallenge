@@ -44,10 +44,20 @@ The [#30DayMapChallenge](30DayMapChallenge.com) is a social mapping challenge th
 
 ## Day 8 - Urban
 
-**Concept:**
+**Concept:** Highways of Belo Horizonte
 
 **Tools:** R, `ggplot2`
 
 **Data:** Open Street Maps
 
 ![](2025/08_urban\08_urban.png){fig-align="center" width="533"}
+
+## Day 10 - Air
+
+**Concept:** ATL Flight Routes (Jan 2024)
+
+**Tools:** R, `ggraph`
+
+**Data:** `anyflights`
+
+![](2025/10_air\10_air.png){fig-align="center" width="533"}

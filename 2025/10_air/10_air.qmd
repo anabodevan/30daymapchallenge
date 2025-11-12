@@ -1,0 +1,115 @@
+---
+title: "Air"
+author: "Ana Luisa Bodevan"
+description: "ATL Flight Routes"
+image: "10_air.png"
+execute:
+  warning: false
+  message: false
+  eval: true
+format:
+  html:
+    code-tools: true
+    code-fold: true
+---
+
+# Day 10: Air
+
+| Classical Elements 2/4: Focus on the atmosphere. Map weather, wind patterns, air traffic, pollution, or airborne transmission (e.g., pollen, sound).
+
+Hartsfield-Jackson Atlanta International Airport (ATL) is the busiest airport in the world, with 108 million total passengers in 2024. In this map, we will visualize the domestic flights routes out of it. 
+
+## SETUP
+
+### Load packages
+
+```{r}
+library(pacman)
+
+pacman :: p_load(tidyverse, dplyr, anyflights, sf, igraph, ggraph, geosphere, maps)
+```
+
+### Load data 
+
+```{r}
+flights_2024 <- get_flights(station = "ATL", year = 2024, month = 1)
+```
+
+## DATA WRANGLING 
+
+### Filtering 
+
+```{r}
+us_airports <- get_airports()
+
+# Get airport coordinates
+airport_coords <- us_airports %>%
+  select(faa, name, lat, lon) %>%
+  filter(!is.na(lat), !is.na(lon))  # Remove airports without coordinates
+
+
+atl_routes <- flights_2024 %>%
+  filter(origin == "ATL") %>%
+  group_by(origin, dest) %>%
+  summarise(n_flights = n(), .groups = 'drop') %>%
+  filter(origin %in% airport_coords$faa, dest %in% airport_coords$faa)
+
+```
+
+### Create network
+
+```{r}
+flight_network <- graph_from_data_frame(atl_routes, directed = TRUE)
+
+# Match coordinates to vertices
+V(flight_network)$lat <- airport_coords$lat[match(V(flight_network)$name, airport_coords$faa)]
+V(flight_network)$lon <- airport_coords$lon[match(V(flight_network)$name, airport_coords$faa)]
+V(flight_network)$airport_name <- airport_coords$name[match(V(flight_network)$name, airport_coords$faa)]
+
+# Identify ATL for special styling
+V(flight_network)$is_atl <- V(flight_network)$name == "ATL"
+
+# Get US map data
+us_map <- map_data("state")
+```
+
+## PLOT
+```{r}
+ggraph(flight_network, layout = 'manual', x = lon, y = lat) +
+
+  # US state boundaries
+  geom_polygon(data = us_map, 
+               aes(x = long, y = lat, group = group),
+               fill = "black", 
+               color = "white", 
+               size = 0.4,
+               inherit.aes = FALSE) +
+
+  # Flight routes (edges)
+  geom_edge_arc(aes(width = n_flights),
+                color = "gold",
+                alpha = 0.2,
+                linewidth = 0.6,
+                strength = 0.2) +
+
+  # Destination airports (nodes)
+  geom_node_point(aes(filter = !is_atl),
+                  color = "gold",
+                  size = 1,
+                  alpha = 0.6) +
+                    
+  # ATL airport (origin)
+  geom_node_point(aes(filter = is_atl),
+                  color = "white",
+                  size = 2) +
+  # Styling
+  scale_edge_width(range = c(0.2, 1), guide = 'none') +
+  coord_map("mercator", xlim = c(-125, -65), ylim = c(25, 50)) +
+  theme_void() +
+  theme(
+    plot.background = element_rect(fill = "#040608ff", color = NA),
+    plot.margin = margin(10, 10, 10, 10),
+    legend.position = "none"
+  )
+
+```
