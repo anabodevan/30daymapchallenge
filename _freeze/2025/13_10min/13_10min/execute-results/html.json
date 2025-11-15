@@ -1,0 +1,17 @@
+{
+  "hash": "35748e137c41cad59ea9dfcd481348f8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"10 Minute Map\"\nauthor: \"Ana Luisa Bodevan\"\ndescription: \"\"\nimage: \"13_10min.png\"\nexecute:\n  warning: false\n  message: false\n  eval: true\nformat:\n  html:\n    code-tools: true\n    code-fold: true\n---\n\n# Day 13: 10 Minute Map\n\n| Start the timer! The maximum allowed time to design and produce this map is 10 minutes. Focus on speed, simplicity, and core communication.\n\n\n\n### Load packages \n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(pacman)\npacman :: p_load(tidyverse, sf, osmdata, geobr, showtext, ggtext)\n```\n:::\n\n\n### Get layers \n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Get Brasília municipality\nbrasilia <- read_municipality(code_muni = 5300108, year = 2020)\n\n# Get census tracts for Brasília (more detailed than neighborhoods)\nbsb_tracts <- read_census_tract(code_tract = 5300108, year = 2010)\n\n# Define Plano Piloto bounding box\nplano_piloto_bbox <- st_bbox(c(xmin = -47.95, ymin = -15.85, \n                                xmax = -47.85, ymax = -15.75), \n                              crs = st_crs(bsb_tracts))\n\n# Filter tracts within Plano Piloto\nplano <- st_crop(bsb_tracts, plano_piloto_bbox)\n```\n:::\n\n\n### Get fonts \n\n\n::: {.cell}\n\n```{.r .cell-code}\nfont_add_google(\"Inter\", \"inter\")\nshowtext_auto()\n```\n:::\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Artistic map with dark theme\nggplot() +\n  # Dark background layer\n  geom_sf(data = brasilia, fill = \"#0a0a0a\", color = NA) +\n  \n  # Census tracts with gradient effect\n  geom_sf(data = plano, aes(fill = as.numeric(code_tract)), \n          color = \"#ffd700\", size = 0.15, alpha = 0.9) +\n  \n  scale_fill_gradient(low = \"#1a1a2e\", high = \"#0a0a0a\", guide = \"none\") +\n  \n  # Zoom to Plano Piloto\n  coord_sf(xlim = c(-47.95, -47.85), \n           ylim = c(-15.85, -15.75)) +\n  \n  # Minimal dark theme\n  theme_void() +\n  theme(\n    plot.background = element_rect(fill = \"#0a0a0a\", color = NA),\n    panel.background = element_rect(fill = \"#0a0a0a\", color = NA),\n    plot.title = element_text(\n      hjust = 0.5, \n      face = \"bold\", \n      size = 32,\n      color = \"#ffd700\",\n      family = \"inter\",\n      margin = margin(t = 20, b = 5)\n    ),\n    plot.subtitle = element_text(\n      hjust = 0.5,\n      size = 16,\n      color = \"#d4af37\",\n      family = \"inter\",\n      margin = margin(b = 20, t = 10)\n    ),\n    plot.caption = element_text(hjust = 0.5,\n      size = 8,\n      color = \"#d4af37\",\n      family = \"inter\",\n      margin = margin(t = 10)),\n    plot.margin = margin(20, 20, 20, 20)\n  ) +\n  labs(\n    title = \"PLANO PILOTO\",\n    subtitle = \"Brasília  •  15°47'S 47°55'W  •  Oscar Niemeyer\",\n    caption = \"#30DayMapChallenge Day 13 - 10 Minute Map\\nGraphic: Ana Bodevan\"\n  )\n```\n\n::: {.cell-output-display}\n![](13_10min_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "13_10min_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

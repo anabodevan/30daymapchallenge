@@ -32,6 +32,7 @@ pacman :: p_load(tidyverse, dplyr, anyflights, sf, igraph, ggraph, geosphere, ma
 ### Load data 
 
 ```{r}
+options(timeout = 600)
 flights_2024 <- get_flights(station = "ATL", year = 2024, month = 1)
 ```
 
